@@ -152,7 +152,7 @@ async function afficheTag(texte, numero) {
   return obj
 }
 
-
+// Fonction permettant d'empecher la création de toublon lorsque l'on saisie un mot clés
 function supprTagDoublon(tab) {
   let valCompare = 0
   let i = 0;
