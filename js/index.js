@@ -95,6 +95,7 @@ async function trieRechercheInput() {
   const recettes = recipes
   const input = document.querySelectorAll(".contenant-mot-clés")
   const motCles = document.querySelectorAll(".mots-clés")
+  // la fonction triElInput renvoie un objet contenant des tableaux de mots clés pour: ustensiles, ingredients, appareils
   const tabInput = trieElInput()
   // pour chaque input de couleur execute ce code
   for (i = 0; i < input.length; i++) {
@@ -105,7 +106,13 @@ async function trieRechercheInput() {
     input[i].addEventListener("input", (e) => {
      
       const valeurRecherche = e.target.value.toLowerCase()
-      const newTab = tab.filter(el => el.toLowerCase().includes(valeurRecherche))
+      const newTab = [] 
+      tab.forEach((el) => {
+       if(el.toLowerCase().includes(valeurRecherche)){
+        newTab.push(el)
+       }
+      
+      })
       newMotcles.innerHTML = " "
       afficheMotCles(newMotcles, newTab)
       newTab.forEach((el) => {
