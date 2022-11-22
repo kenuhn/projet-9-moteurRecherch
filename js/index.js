@@ -121,7 +121,7 @@ async function trieRechercheInput() {
   }
 }
 
-
+//Fonction permettant d'afficher les tags  elle est appelé lorsqu'il ya une occurence entre la saisie et les mots clés
 async function afficheTag(texte, numero) {
 
   const contentTag = document.querySelector(".tag-content")
