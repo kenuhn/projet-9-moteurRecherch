@@ -44,10 +44,10 @@ async function trieBarreSearch(tabData, e) {
   const galerie = document.querySelector(".galerie")
   if (e.target === barreRecherche){
     const saisie = e.target.value.toLowerCase()
-     /* Renvoie un nouveau tableau avec les recettes incluants le tag taper dans la barre de recherche
+     /* Renvoie un nouveau tableau avec les recettes incluants le saisie taper dans la barre de recherche
    si la cible contient un groupe de lettres incluant le nom l'ingredients ou un mot de la description 
    et que la cible contient au moins 3 lettres */
-     /* const newRecettes = recettes.filter(recette => 
+     const newRecettes = recettes.filter(recette => 
         recette.name.toLowerCase().includes(saisie) || 
 
         recette.ingredients.forEach((objIngredient) => {
@@ -55,19 +55,7 @@ async function trieBarreSearch(tabData, e) {
         }) ||
 
         recette.description.toLowerCase().includes(saisie)
-        )*/
-        const newRecettes = []
-        recettes.forEach((recette) => {
-          if ( recette.name.toLowerCase().includes(saisie) || 
-
-          recette.ingredients.forEach((objIngredient) => {
-              objIngredient.ingredient.toLowerCase().includes(saisie)
-          }) ||
-  
-          recette.description.toLowerCase().includes(saisie)) {
-            newRecettes.push(recette)
-          }
-        })
+        )
       console.log(newRecettes)
       if (saisie.length > 3 ) {
 
@@ -98,22 +86,17 @@ async function trieRechercheInput() {
   // la fonction triElInput renvoie un objet contenant des tableaux de mots clés pour: ustensiles, ingredients, appareils
   const tabInput = trieElInput()
   // pour chaque input de couleur execute ce code
+
   for (i = 0; i < input.length; i++) {
     const tab = tabInput[i]
     const newMotcles = motCles[i]
     const indexInput = i
 
     input[i].addEventListener("input", (e) => {
-     
       const valeurRecherche = e.target.value.toLowerCase()
-      const newTab = [] 
-      tab.forEach((el) => {
-       if(el.toLowerCase().includes(valeurRecherche)){
-        newTab.push(el)
-       }
-      
-      })
+      const newTab = tab.filter(el =>  el.toLowerCase().includes(valeurRecherche))
       newMotcles.innerHTML = " "
+      
       afficheMotCles(newMotcles, newTab)
       newTab.forEach((el) => {
         if (el.toLowerCase() === valeurRecherche) {
