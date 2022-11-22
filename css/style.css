@@ -1,0 +1,250 @@
+body{
+    font-family: 'Lato', sans-serif;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+
+}
+header{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+/* Barre de recherche */
+.recherche{
+    width: 1240px;
+   
+}
+.barre-recherche{
+    height: 50px;
+    width: 1240px;
+    left: 0px;
+    top: 0px;
+    border-radius: 5px;
+    padding-left: 10px;
+    background-color: #E7E7E7;
+    color: #000000;
+}
+
+.fa-magnifying-glass{
+    position: absolute;
+    right: 130px;
+    top: 108;
+}
+
+/*recherche par mots clés ou tag*/
+.recherche-mots-clés{
+    position:absolute;
+    margin-bottom: 300px;
+}
+.contenant-input-mots-clés{
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+.contenant-mot-clés{
+    color: white;
+    margin-right: 25px;
+    height: 50;
+    border-radius: 5px;
+}
+
+.mots-clés-input{
+    height: 50px;
+    width: 150px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+}
+
+
+#ingredients, .bleu{
+    background: #3282F7;
+}
+#appareils, .vert{
+    background: #68D9A4;
+}
+
+#ustensiles, .rouge{
+    background: #ED6454;
+}
+.placeholder{
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    bottom: 35px;
+    width: 150px;
+
+}
+.placeholder-texte{
+    width: 50px;
+    margin: 0;
+    padding: 0;
+}
+.mots-clés-input:focus > .placeholder-texte{
+    visibility: hidden;
+}
+.mots-clés-input:focus {
+    padding-left: 15px;
+}
+#arrow-up {
+    display: none;
+    position: relative;
+    left: 675px;
+    top: 7px;
+}
+
+.mots-clés {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: start;
+    align-items: start;
+    height: 300px;
+    display: none;
+    padding-left: 10px;
+}
+.texte-mot-clés{
+    font-size: medium;
+
+}
+/*tag recherche par mots clés*/
+.contenant-tag{
+    height: 16.552631378173828px;
+    width: 32px;
+    left: 20px;
+    top: 10px;
+}
+
+.tag-ingredients{
+    display: none;
+    background-color: #3282F7;
+}
+.tag-appareils{
+    display: none;
+    background-color: #68D9A4;
+}
+
+.tag-ustensiles {
+    display: none;
+    background-color: #ED6454;
+}
+
+/* carte des recettes */
+.galerie {
+    margin-top: 100px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    width: 1240px;    
+}
+.carte-recette{
+    display: flex;
+    flex-flow: column wrap;
+    width: 380px;
+    height: 380px;
+    border-radius: 10px;
+    margin-top: 50px;
+}
+
+.carte-recette-media{
+    width: 100%;
+    height: 50%;
+    border-radius: 10px 10px 0px 0px;
+    background-color: #C7BEBE;
+}
+.content-recette{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 25% 75%;
+    width: 100%;
+    height: 50%;
+    border-radius: 0px 0px 10px 10px ;
+    background-color:  #E7E7E7;
+}
+
+.titre-recette{
+    grid-column: 1/2;
+    grid-row: 1/2;
+    font-size: small;
+    margin: 0;
+    padding: 10px;
+    align-self: center;
+}
+
+.temps-recette{
+    margin: 0;
+    grid-column: 2/3;
+    grid-row: 1/2;
+    justify-self: end;
+    font-size: small;
+    align-self: center;
+    padding-right: 15px;
+}
+
+.content-ingredients{
+    grid-column: 1/2;
+    grid-row: 2/3;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 175px;
+    height: 100px;
+}
+.bold-text-ingredients{
+    grid-column: 1/2;
+    margin: 0;
+    font-weight: bold;
+    font-size: xx-small;
+    margin-right: 5px;
+    padding-left: 15px;
+}
+.texte-ingredients{
+    grid-column: 2/3;
+    margin: 0;
+    font-size: x-small;
+    width: 85px;
+    height:20px ;
+}
+.carte-recette-description{
+    grid-column: 2/3;
+    grid-row: 2/3;
+    padding-left: 5px;
+    padding-right: 5px;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    margin: 0;
+    height: 98px;
+    font-size: small;
+    overflow: hidden;
+}
+
+/* tag */ 
+.tag-content{
+    display: flex;
+}
+.tag-block {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-content: center;
+    border-radius: 5px;
+    width: 130px;
+    height: 45px;
+    margin-top: 10px;
+    margin-right: 10px;
+   
+}
+.text-tag{
+    margin: 0;
+    font-size: small
+}
+#close-tag{
+    position: relative;
+
+    margin: 0;
+}
