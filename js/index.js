@@ -11,6 +11,7 @@ async function index() {
 }
 index()
 
+// Affine la recherche en trier les recettes qui contiennent l'ensemble des mots clés
 function tabRecetteTrier(recettes, tabRecherche) {
   let tabRecette = []
   recettes.forEach((recette) => {
