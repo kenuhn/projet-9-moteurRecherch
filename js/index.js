@@ -1,4 +1,4 @@
-let obj = [];
+let obj = []; // Variable global contenant les mot clés des tags
 
 async function index() {
   const recettes = recipes
@@ -14,26 +14,26 @@ index()
 // Affine la recherche en trier les recettes qui contiennent l'ensemble des mots clés
 function tabRecetteTrier(recettes, tabRecherche) {
   let tabRecette = []
-  recettes.forEach((recette) => {
+  for (let i = 0; i < recettes.length; i++) {
     let nbTrue = 0;
     //Pour chaque recette, vérifier si la recette contient un des mots clés soit dans son nom sa descritpion ou ses ingredients 
     //boucle chaque élement du tableau recherche 
-    tabRecherche.forEach((el) => {
-      if (recette.name.toLowerCase().includes(el.toLowerCase()) === true || 
-          recette.description.toLowerCase().includes(el.toLowerCase()) === true ||
-          recette.ingredients.forEach((objIngredient) => {
+    for (el of tabRecherche) {
+      if (recettes[i].name.toLowerCase().includes(el.toLowerCase()) === true || 
+          recettes[i].description.toLowerCase().includes(el.toLowerCase()) === true ||
+          recettes[i].ingredients.forEach((objIngredient) => {
             objIngredient.ingredient.toLowerCase().includes(el.toLowerCase())
         })
       )//si le mot clés est présent dans une des parties de l'objet recette  ajoute 1à la variable nombre de true
        {
         nbTrue++
        }
-       // si tous les mots clés sont présent dans l'objet recette push recette dans un tableau 
+       // si tous les mots clés sont présent dans {l'objet recette}, alors push recette dans un tableau 
       if (nbTrue === tabRecherche.length) {
-        tabRecette.push(recette)
+        tabRecette.push(recettes[i])
       }
-    })
-  })
+    }
+  }
   return tabRecette
 }
 
@@ -44,18 +44,11 @@ async function trieBarreSearch(tabData, e) {
   const galerie = document.querySelector(".galerie")
   if (e.target === barreRecherche){
     const saisie = e.target.value.toLowerCase()
+
      /* Renvoie un nouveau tableau avec les recettes incluants le tag taper dans la barre de recherche
    si la cible contient un groupe de lettres incluant le nom l'ingredients ou un mot de la description 
    et que la cible contient au moins 3 lettres */
-     /* const newRecettes = recettes.filter(recette => 
-        recette.name.toLowerCase().includes(saisie) || 
 
-        recette.ingredients.forEach((objIngredient) => {
-            objIngredient.ingredient.toLowerCase().includes(saisie)
-        }) ||
-
-        recette.description.toLowerCase().includes(saisie)
-        )*/
         const newRecettes = []
         recettes.forEach((recette) => {
           if ( recette.name.toLowerCase().includes(saisie) || 
@@ -69,10 +62,11 @@ async function trieBarreSearch(tabData, e) {
           }
         })
       console.log(newRecettes)
+
       if (saisie.length > 3 ) {
 
         if ( newRecettes.length !== 0){
-          // tabData.push(saisie)  if (newTab[0].length !== 0) {
+
                removeGalerie()
                afficheCards(newRecettes)
                console.log(newRecettes)
@@ -97,7 +91,7 @@ async function trieRechercheInput() {
   const motCles = document.querySelectorAll(".mots-clés")
   // la fonction triElInput renvoie un objet contenant des tableaux de mots clés pour: ustensiles, ingredients, appareils
   const tabInput = trieElInput()
-  // pour chaque input de couleur execute ce code
+  // pour chaque input de couleur affilie un tableau de mots clés 
   for (i = 0; i < input.length; i++) {
     const tab = tabInput[i]
     const newMotcles = motCles[i]
@@ -105,25 +99,37 @@ async function trieRechercheInput() {
 
     input[i].addEventListener("input", (e) => {
      
-      const valeurRecherche = e.target.value.toLowerCase()
+     /*  si la valeur de la saisie est inclue dans le tableaux des mots clés correspondant  
+        alors pousse le mot clés dans un nouveau tableau 
+     */
+      const valeurSaisie = e.target.value.toLowerCase()
       const newTab = [] 
-      tab.forEach((el) => {
-       if(el.toLowerCase().includes(valeurRecherche)){
+       for (el of tab){
+       if(el.toLowerCase().includes(valeurSaisie)){
         newTab.push(el)
        }
-      
-      })
+      }
+      /* supprime les mots clés présent dans l'input et affiche les mot clés  
+      du nouveau tableau de mot clés en appelant la fonction affiche mot clés 
+      */
       newMotcles.innerHTML = " "
       afficheMotCles(newMotcles, newTab)
-      newTab.forEach((el) => {
-        if (el.toLowerCase() === valeurRecherche) {
+
+      /* Ensuite pour chaque mot clés du newTab vérifie si la valeur de la saisie 
+      est strictement = à un des éléments du newTab si oui ?
+      => Affiche un tag => suprime la galerie de recettes 
+      => créer un nouveau tableau de recettes en fonction des mots clés
+      => supprime les anciennes recettes dans la galerie => et affiche les nouvelles 
+      */
+        for (el of newTab){
+        if (el.toLowerCase() === valeurSaisie) {
           afficheTag(el, indexInput)
           let newRecettes =  tabRecetteTrier(recettes, obj.tabMotCles)
-          console.log("par ce que c'est ==>", newRecettes)
           removeGalerie()
           afficheCards(newRecettes)
         }
-      })
+      }
+
     })
   }
 }
@@ -152,7 +158,6 @@ async function afficheTag(texte, numero) {
     </div>
     `
     let  nodeListTag = document.querySelectorAll(".tag-block")
-   //console.log(nodeListTag)
   // Si nodeListag existe execute la fonction de suppression des tableaux dans la nodeList 
    obj  = supprTagDoublon(nodeListTag)
   removeTag(nodeListTag, obj.tabMotCles)

@@ -54,6 +54,7 @@ function animationBtnTag(data) {
 function afficheMotCles (motCles, data) {
 
     const newTab = data.filter(el => data.indexOf(el) < 30) // n'affiche pas plus de 30 mot clès
+    /* Pour chaque motCles présent dans le tablea de mot cles créer un nouveau mot cles das le conteneur de mots clés input */
     newTab.forEach((el) => {
         const p = document.createElement("p")
         p.textContent = el
