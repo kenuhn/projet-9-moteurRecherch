@@ -93,13 +93,16 @@ async function trieRechercheInput() {
     const indexInput = i
 
     input[i].addEventListener("input", (e) => {
-      const valeurRecherche = e.target.value.toLowerCase()
-      const newTab = tab.filter(el =>  el.toLowerCase().includes(valeurRecherche))
+      const valeurSaisie = e.target.value.toLowerCase()
+        /*  si la valeur de la saisie est inclue dans le tableaux des mots clés correspondant  
+        alors pousse le mot clés dans un nouveau tableau 
+     */
+      const newTab = tab.filter(el =>  el.toLowerCase().includes(valeurSaisie))
       newMotcles.innerHTML = " "
       
       afficheMotCles(newMotcles, newTab)
       newTab.forEach((el) => {
-        if (el.toLowerCase() === valeurRecherche) {
+        if (el.toLowerCase() === valeurSaisie) {
           afficheTag(el, indexInput)
           let newRecettes =  tabRecetteTrier(recettes, obj.tabMotCles)
           removeGalerie()
