@@ -99,7 +99,12 @@ async function trieRechercheInput() {
      */
       const newTab = tab.filter(el =>  el.toLowerCase().includes(valeurSaisie))
       newMotcles.innerHTML = " "
-      
+       /* Ensuite pour chaque mot clés du newTab vérifie si la valeur de la saisie 
+      est strictement = à un des éléments du newTab si oui ?
+      => Affiche un tag => suprime la galerie de recettes 
+      => créer un nouveau tableau de recettes en fonction des mots clés
+      => supprime les anciennes recettes dans la galerie => et affiche les nouvelles 
+      */
       afficheMotCles(newMotcles, newTab)
       newTab.forEach((el) => {
         if (el.toLowerCase() === valeurSaisie) {
