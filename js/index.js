@@ -52,13 +52,11 @@ async function trieBarreSearch(tabData, e) {
    et que la cible contient au moins 3 lettres */
      const newRecettes = recettes.filter(recette => 
         recette.name.toLowerCase().includes(saisie) || 
-
         recette.ingredients.forEach((objIngredient) => {
             objIngredient.ingredient.toLowerCase().includes(saisie)
         }) ||
+        recette.description.toLowerCase().includes(saisie))
 
-        recette.description.toLowerCase().includes(saisie)
-        )
       console.log(newRecettes)
       if (saisie.length > 3 ) {
 
@@ -104,7 +102,6 @@ async function trieRechercheInput() {
         if (el.toLowerCase() === valeurRecherche) {
           afficheTag(el, indexInput)
           let newRecettes =  tabRecetteTrier(recettes, obj.tabMotCles)
-          console.log("par ce que c'est ==>", newRecettes)
           removeGalerie()
           afficheCards(newRecettes)
         }
