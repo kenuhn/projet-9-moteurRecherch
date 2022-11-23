@@ -1,12 +1,10 @@
-let obj = [];
-
 async function index() {
   const recettes = recipes
   const data = trieElInput()
   afficheCards(recettes)
   animationBtnTag(data)
   trieRechercheInput()
-  document.addEventListener("input", (evenement) => { trieBarreSearch(obj, evenement) })
+  document.addEventListener("input", (evenement) => { trieBarreSearch(evenement) })
 }
 index()
 
@@ -41,7 +39,7 @@ function tabRecetteTrier(recettes, tabRecherche) {
 }
 
 //Affiche les cartes trier dans la galerie
-async function trieBarreSearch(tabData, e) {
+async function trieBarreSearch(e) {
   const barreRecherche = document.querySelector(".barre-recherche")
   const recettes = recipes
   const galerie = document.querySelector(".galerie")
@@ -73,26 +71,26 @@ async function trieBarreSearch(tabData, e) {
         removeGalerie()
         afficheCards(recettes)
       }
-      console.log(saisie, tabData)
+      console.log(saisie)
 
   } 
  
 }
 //Trie les recettes afficher à l'interieur de chaque input de couleur 
 async function trieRechercheInput() {
-  const recettes = recipes
-  const input = document.querySelectorAll(".contenant-mot-clés")
+  const allInput = document.querySelectorAll(".contenant-mot-clés")
   const motCles = document.querySelectorAll(".mots-clés")
   // la fonction triElInput renvoie un objet contenant des tableaux de mots clés pour: ustensiles, ingredients, appareils
   const tabInput = trieElInput()
   // pour chaque input de couleur execute ce code
 
-  for (i = 0; i < input.length; i++) {
-    const tab = tabInput[i]
-    const newMotcles = motCles[i]
-    const indexInput = i
+  allInput.forEach((input, index) => {
 
-    input[i].addEventListener("input", (e) => {
+    const tab = tabInput[index]
+    const newMotcles = motCles[index]
+    const indexInput = index
+
+    input.addEventListener("input", (e) => {
       const valeurSaisie = e.target.value.toLowerCase()
         /*  si la valeur de la saisie est inclue dans le tableaux des mots clés correspondant  
         alors pousse le mot clés dans un nouveau tableau 
@@ -101,51 +99,60 @@ async function trieRechercheInput() {
       newMotcles.innerHTML = " "
        /* Ensuite pour chaque mot clés du newTab vérifie si la valeur de la saisie 
       est strictement = à un des éléments du newTab si oui ?
+      => Affiche un tag => 
+      */
+      afficheMotCles(newMotcles, newTab)
+      newTab.forEach((motCles) => {
+        if (motCles.toLowerCase() === valeurSaisie) {
+          afficheTag(motCles, indexInput)
+        }
+      })
+    })
+
+  }) 
+  
+}
+
+/* ==> Fonction permettant d'afficher les tags  elle est appelé lorsqu'il ya une occurence entre la saisie et les mots clés
+   ==> prends en paramétres l'index de l'input que l'utilisateur saisie 
+   ==> Appelle removeTag 
+   ==> return un un objet contenant tous les mots clés du tag 
+*/
+async function afficheTag(motCles, indexInput) {
+  const recettes = recipes
+  const contentTag = document.querySelector(".tag-content")
+  const blockTag = document.createElement("div")
+  switch (indexInput) {
+    case 0: indexInput = "bleu";
+      break;
+    case 1: indexInput = "vert";
+      break;
+    case 2: indexInput = "rouge";
+      break;
+    default: console.log("numero n'a pas de valeur ")
+  }
+
+  blockTag.classList.add("tag-block", indexInput)
+  contentTag.appendChild(blockTag)
+  blockTag.innerHTML = `
+    <p class="text-tag">${motCles}</p>   
+    <i class="fa-regular fa-circle-xmark" id="close-tag"></i>                        
+    </div>
+    `
+    // Si nodeListag existe execute la fonction de suppression des tableaux dans la nodeList 
+    let  nodeListTag = document.querySelectorAll(".tag-block")
+
+  /* Ensuite pour chaque mot clés du newTab vérifie si la valeur de la saisie 
+      est strictement = à un des éléments du newTab si oui ?
       => Affiche un tag => suprime la galerie de recettes 
       => créer un nouveau tableau de recettes en fonction des mots clés
       => supprime les anciennes recettes dans la galerie => et affiche les nouvelles 
       */
-      afficheMotCles(newMotcles, newTab)
-      newTab.forEach((el) => {
-        if (el.toLowerCase() === valeurSaisie) {
-          afficheTag(el, indexInput)
-          let newRecettes =  tabRecetteTrier(recettes, obj.tabMotCles)
-          removeGalerie()
-          afficheCards(newRecettes)
-        }
-      })
-    })
-  }
-}
-
-//Fonction permettant d'afficher les tags  elle est appelé lorsqu'il ya une occurence entre la saisie et les mots clés
-async function afficheTag(texte, numero) {
-
-  const contentTag = document.querySelector(".tag-content")
-  const blockTag = document.createElement("div")
-  switch (numero) {
-    case 0: numero = "bleu";
-      break;
-    case 1: numero = "vert";
-      break;
-    case 2: numero = "rouge";
-      break;
-    default: console.log("numero n'a pas de valeur ")
-  }
-  console.log(numero)
-  
-  blockTag.classList.add("tag-block", numero)
-  contentTag.appendChild(blockTag)
-  blockTag.innerHTML = `
-    <p class="text-tag">${texte}</p>   
-    <i class="fa-regular fa-circle-xmark" id="close-tag"></i>                        
-    </div>
-    `
-    let  nodeListTag = document.querySelectorAll(".tag-block")
-   //console.log(nodeListTag)
-  // Si nodeListag existe execute la fonction de suppression des tableaux dans la nodeList 
    obj  = supprTagDoublon(nodeListTag)
-  removeTag(nodeListTag, obj.tabMotCles)
+   let newRecettes = tabRecetteTrier(recettes, obj.tabMotCles)
+   removeGalerie()
+   afficheCards(newRecettes)
+   removeTag(nodeListTag, obj.tabMotCles)
   return obj
 }
 
