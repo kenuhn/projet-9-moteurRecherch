@@ -84,7 +84,9 @@ async function trieBarreSearch(tabData, e) {
   } 
  
 }
-//Trie les recettes afficher à l'interieur de chaque input de couleur 
+/* Trie les mots clés afficher à l'interieur de chaque input de couleur 
+  afine la recherche en fonction des mots tag présents 
+*/
 async function trieRechercheInput() {
   const recettes = recipes
   const input = document.querySelectorAll(".contenant-mot-clés")
@@ -129,7 +131,6 @@ async function trieRechercheInput() {
           afficheCards(newRecettes)
         }
       }
-
     })
   }
 }
