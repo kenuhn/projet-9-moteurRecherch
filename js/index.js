@@ -3,7 +3,6 @@ let obj = [];
 async function index() {
   const recettes = recipes
   const data = trieElInput()
-  //const tagData = ["lait"]
   afficheCards(recettes)
   animationBtnTag(data)
   trieRechercheInput()
@@ -13,11 +12,14 @@ index()
 
 // Affine la recherche en trier les recettes qui contiennent l'ensemble des mots clés
 function tabRecetteTrier(recettes, tabRecherche) {
-  let tabRecette = []
+  let tabRecetteTrier = []
+  
+  /* Pour chaque recette, vérifier si la recette contient chacun des mots clés 
+    du tableau tabRecherche soit dans son nom sa descritpion ou ses ingredients */
   recettes.forEach((recette) => {
     let nbTrue = 0;
-    //Pour chaque recette, vérifier si la recette contient un des mots clés soit dans son nom sa descritpion ou ses ingredients 
-    //boucle chaque élement du tableau recherche 
+    /* parcours le tableau recherche afin de rechercher si tous le mots sont présents  */
+
     tabRecherche.forEach((el) => {
       if (recette.name.toLowerCase().includes(el.toLowerCase()) === true || 
           recette.description.toLowerCase().includes(el.toLowerCase()) === true ||
@@ -30,11 +32,12 @@ function tabRecetteTrier(recettes, tabRecherche) {
        }
        // si tous les mots clés sont présent dans l'objet recette push recette dans un tableau 
       if (nbTrue === tabRecherche.length) {
-        tabRecette.push(recette)
+        tabRecetteTrier.push(recette)
       }
     })
+
   })
-  return tabRecette
+  return tabRecetteTrier
 }
 
 //Affiche les cartes trier dans la galerie
@@ -60,7 +63,6 @@ async function trieBarreSearch(tabData, e) {
       if (saisie.length > 3 ) {
 
         if ( newRecettes.length !== 0){
-          // tabData.push(saisie)  if (newTab[0].length !== 0) {
                removeGalerie()
                afficheCards(newRecettes)
                console.log(newRecettes)
@@ -198,4 +200,3 @@ function removeTag(nodeList, tabMotCles) {
 }
 }
 
-/**/
