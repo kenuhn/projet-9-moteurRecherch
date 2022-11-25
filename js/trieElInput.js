@@ -11,10 +11,8 @@ function trieElInput() {
       recette.ingredients.forEach((ingredient) => {
         const minuscule = ingredient.ingredient.toLowerCase()
         tabIngredients.push(minuscule.replace(minuscule[0], minuscule[0].toUpperCase()))
-        //console.log(ingredient.ingredient.toLowerCase().replace(ingredient.ingredient[0], ingredient.ingredient[0].toUpperCase()))
     })
       recette.ustensils.forEach((ustensile) => {
-        //ustensile.forEach((el) => el.toLowerCase())
         // remplace la première lettre de l'alphabet par une lettre majuscule 
         tabUstensils.push(ustensile.replace(ustensile[0], ustensile[0].toUpperCase()))
       })

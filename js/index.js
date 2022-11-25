@@ -10,24 +10,24 @@ async function index() {
 index()
 
 // Affine la recherche en trier les recettes qui contiennent l'ensemble des mots clés
-function tabRecetteTrier(recettes, tabRecherche) {
+function tabRecetteTrier(recettes, tabMotCles) {
   let tabRecette = []
   for (let i = 0; i < recettes.length; i++) {
     let nbTrue = 0;
     //Pour chaque recette, vérifier si la recette contient un des mots clés soit dans son nom sa descritpion ou ses ingredients 
     //boucle chaque élement du tableau recherche 
-    for (el of tabRecherche) {
-      if (recettes[i].name.toLowerCase().includes(el.toLowerCase()) === true || 
-          recettes[i].description.toLowerCase().includes(el.toLowerCase()) === true ||
+    for (motCles of tabMotCles) {
+      if (recettes[i].name.toLowerCase().includes(motCles.toLowerCase()) === true || 
+          recettes[i].description.toLowerCase().includes(motCles.toLowerCase()) === true ||
           recettes[i].ingredients.forEach((objIngredient) => {
-            objIngredient.ingredient.toLowerCase().includes(el.toLowerCase())
+            objIngredient.ingredient.toLowerCase().includes(motCles.toLowerCase())
         })
       )//si le mot clés est présent dans une des parties de l'objet recette  ajoute 1à la variable nombre de true
        {
         nbTrue++
        }
        // si tous les mots clés sont présent dans {l'objet recette}, alors push recette dans un tableau 
-      if (nbTrue === tabRecherche.length) {
+      if (nbTrue === tabMotCles.length) {
         tabRecette.push(recettes[i])
       }
     }
