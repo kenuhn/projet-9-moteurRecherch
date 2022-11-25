@@ -184,7 +184,7 @@ function supprTagDoublon(tab) {
   return { tab: [...tab], tabMotCles: [...tabMotCles] }
 }
 
-
+//fonction récursive pour supprimer les tags au clique.
 function removeTag(nodeList, tabMotCles) {
   let recettes = recipes
   let closeBtn = document.querySelectorAll("#close-tag")
