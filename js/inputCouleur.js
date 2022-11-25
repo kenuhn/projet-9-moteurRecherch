@@ -5,7 +5,7 @@ function animationBtnTag(data) {
     const texteInput = document.querySelectorAll(".placeholder-texte")
     const contenantInput = document.querySelectorAll(".contenant-mot-clés")
     const motCles = document.querySelectorAll(".mots-clés")
-    console.log(motCles)
+  
     input.forEach((el) => el.style.width = "150px")
     document.addEventListener("click", (e) => {
         for (i = 0; i < input.length; i++) {
