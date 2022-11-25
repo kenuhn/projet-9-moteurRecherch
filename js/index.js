@@ -9,7 +9,7 @@ async function index() {
 index()
 
 // Affine la recherche en trier les recettes qui contiennent l'ensemble des mots clés
-function tabRecetteTrier(recettes, tabRecherche) {
+function tabRecetteTrier(recettes, tabMotCles) {
   let tabRecetteTrier = []
   
   /* Pour chaque recette, vérifier si la recette contient chacun des mots clés 
@@ -18,7 +18,7 @@ function tabRecetteTrier(recettes, tabRecherche) {
     let nbTrue = 0;
     /* parcours le tableau recherche afin de rechercher si tous le mots sont présents  */
 
-    tabRecherche.forEach((el) => {
+    tabMotCles.forEach((el) => {
       if (recette.name.toLowerCase().includes(el.toLowerCase()) === true || 
           recette.description.toLowerCase().includes(el.toLowerCase()) === true ||
           recette.ingredients.forEach((objIngredient) => {
@@ -29,7 +29,7 @@ function tabRecetteTrier(recettes, tabRecherche) {
         nbTrue++
        }
        // si tous les mots clés sont présent dans l'objet recette push recette dans un tableau 
-      if (nbTrue === tabRecherche.length) {
+      if (nbTrue === tabMotCles.length) {
         tabRecetteTrier.push(recette)
       }
     })
