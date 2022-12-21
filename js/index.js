@@ -48,7 +48,7 @@ async function trieBarreSearch(e) {
    et que la cible contient au moins 3 lettres */
 
         const newRecettes = []
-        recettes.forEach((recette) => {
+        for (recette of recettes){
           if ( recette.name.toLowerCase().includes(saisie) || 
 
           recette.ingredients.forEach((objIngredient) => {
@@ -58,7 +58,8 @@ async function trieBarreSearch(e) {
           recette.description.toLowerCase().includes(saisie)) {
             newRecettes.push(recette)
           }
-        })
+        }
+      
       console.log(newRecettes)
 
       if (saisie.length > 3 ) {
