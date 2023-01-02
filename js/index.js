@@ -48,20 +48,20 @@ async function trieBarreSearch(e) {
    et que la cible contient au moins 3 lettres */
 
         const newRecettes = []
-        for (recette of recettes){
-          if ( recette.name.toLowerCase().includes(saisie) || 
-
-          recette.ingredients.forEach((objIngredient) => {
-              objIngredient.ingredient.toLowerCase().includes(saisie)
-          }) ||
+          for (recette of recettes){
+            if ( recette.name.toLowerCase().indexOf(saisie) !== -1 || 
   
-          recette.description.toLowerCase().includes(saisie)) {
-            newRecettes.push(recette)
-          }
-        }
-      
-      console.log(newRecettes)
+            recette.ingredients.forEach((objIngredient) => {
+                objIngredient.ingredient.toLowerCase().indexOf(saisie) !== -1
+            }) ||
+    
+            recette.description.toLowerCase().indexOf(saisie) !== -1) {
 
+              newRecettes.push(recette)
+              console.log( recette.name.toLowerCase().indexOf(saisie))
+            }
+          }
+        
       if (saisie.length > 3 ) {
 
         if ( newRecettes.length !== 0){
