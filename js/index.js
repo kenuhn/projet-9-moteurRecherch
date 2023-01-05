@@ -44,19 +44,17 @@ async function trieBarreSearch(e) {
   const recettes = recipes
   const galerie = document.querySelector(".galerie")
   if (e.target === barreRecherche){
-    const saisie = e.target.value.toLowerCase()
-     /* Renvoie un nouveau tableau avec les recettes incluants le saisie taper dans la barre de recherche
-   si la cible contient un groupe de lettres incluant le nom l'ingredients ou un mot de la description 
-   et que la cible contient au moins 3 lettres */
-     const newRecettes = recettes.filter(recette => 
-        recette.name.toLowerCase().includes(saisie) || 
-        recette.ingredients.forEach((objIngredient) => {
-            objIngredient.ingredient.toLowerCase().includes(saisie)
-        }) ||
-        recette.description.toLowerCase().includes(saisie))
-
-      
+    const saisie = e.target.value.toLowerCase()  
       if (saisie.length > 3 ) {
+        /* Renvoie un nouveau tableau avec les recettes incluants le saisie taper dans la barre de recherche
+        si la cible contient un groupe de lettres incluant le nom l'ingredients ou un mot de la description 
+         et que la cible contient au moins 3 lettres */
+        const newRecettes = recettes.filter(recette => 
+          recette.name.toLowerCase().includes(saisie) || 
+          recette.ingredients.forEach((objIngredient) => {
+              objIngredient.ingredient.toLowerCase().includes(saisie)
+          }) ||
+          recette.description.toLowerCase().includes(saisie))
 
         if ( newRecettes.length !== 0){
                removeGalerie()
