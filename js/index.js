@@ -55,8 +55,6 @@ async function trieBarreSearch(e) {
         objIngredient.ingredient.toLowerCase().includes(saisie)
       }) ||
       recette.description.toLowerCase().includes(saisie))
-
-    console.log(newRecettes)
     if (saisie.length > 3) {
 
       if (newRecettes.length !== 0) {
