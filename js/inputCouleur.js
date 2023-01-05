@@ -1,7 +1,7 @@
 function animationBtnTag(data) {
     const input = document.querySelectorAll(".mots-clés-input")
-    const arrowUp = document.querySelectorAll("#arrow-up")
-    const arrowDown = document.querySelectorAll("#arrow-down")
+    const arrowUp = document.querySelectorAll(".arrow-up")
+    const arrowDown = document.querySelectorAll(".arrow-down")
     const texteInput = document.querySelectorAll(".placeholder-texte")
     const contenantInput = document.querySelectorAll(".contenant-mot-clés")
     const motCles = document.querySelectorAll(".mots-clés")
@@ -28,7 +28,6 @@ function animationBtnTag(data) {
                 arrowUp[i].style.display = "none"
                 arrowDown[i].style.display = "block"
                 texteInput[i].style.display = "block"
-                input[i].setAttribute("placeholder", "")
                 contenantInput[i].style.height = "50px"
                 motCles[i].textContent = ""
                 motCles[i].style.display = "none"
@@ -41,7 +40,6 @@ function animationBtnTag(data) {
                 arrowUp[i].style.display = "none"
                 arrowDown[i].style.display = "block"
                 texteInput[i].style.display = "block"
-                input[i].setAttribute("placeholder", "")
                 contenantInput[i].style.height = "50px"
                 motCles[i].textContent = ""
                 motCles[i].style.display = "none"
