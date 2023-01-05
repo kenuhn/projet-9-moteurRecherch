@@ -58,7 +58,6 @@ async function trieBarreSearch(e) {
             recette.description.toLowerCase().indexOf(saisie) !== -1) {
 
               newRecettes.push(recette)
-              console.log( recette.name.toLowerCase().indexOf(saisie))
             }
           }
         
