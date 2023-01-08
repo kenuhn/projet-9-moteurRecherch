@@ -240,11 +240,13 @@ header{
    
 }
 .text-tag{
+    color: white;
     margin: 0;
     font-size: small
 }
 #close-tag{
     position: relative;
-
     margin: 0;
+    margin-left: 20px;
+    color: white;
 }
