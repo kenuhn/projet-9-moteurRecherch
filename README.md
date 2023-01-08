@@ -1,4 +1,5 @@
-# p7-moteurRecherch
+# p7-moteurRecherche
+
 Création d'un moteur de recherche en vanilla javascript
 
 Création d'un algorigramme pour chaque algorithme avant de les coder.
