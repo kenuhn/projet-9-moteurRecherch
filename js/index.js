@@ -10,6 +10,7 @@ index()
 
 // Affine la recherche en trier les recettes qui contiennent l'ensemble des mots clés
 function tabRecetteTrier(recettes, tabMotCles) {
+  //const galerie = document.querySelector(".galerie")
   let tabRecetteTrier = []
   
   /* Pour chaque recette, vérifier si la recette contient chacun des mots clés 
@@ -31,7 +32,7 @@ function tabRecetteTrier(recettes, tabMotCles) {
        // si tous les mots clés sont présent dans l'objet recette push recette dans un tableau 
       if (nbTrue === tabMotCles.length) {
         tabRecetteTrier.push(recette)
-      }
+      } 
     })
 
   })
@@ -42,7 +43,7 @@ function tabRecetteTrier(recettes, tabMotCles) {
 async function trieBarreSearch(e) {
   const barreRecherche = document.querySelector(".barre-recherche")
   const recettes = recipes
-  const galerie = document.querySelector(".galerie")
+  
   if (e.target === barreRecherche){
     const saisie = e.target.value.toLowerCase()  
       if (saisie.length > 3 ) {
@@ -62,8 +63,7 @@ async function trieBarreSearch(e) {
                console.log(newRecettes)
     
          } else if ( newRecettes.length === 0) {
-           removeGalerie()
-           galerie.textContent = "Aucun élément de la recherche ne correspond"
+          afficheError ()
          }
       } else {
         removeGalerie()
@@ -148,10 +148,23 @@ async function afficheTag(motCles, indexInput) {
       */
    obj  = supprTagDoublon(nodeListTag)
    let newRecettes = tabRecetteTrier(recettes, obj.tabMotCles)
-   removeGalerie()
-   afficheCards(newRecettes)
-   removeTag(nodeListTag, obj.tabMotCles)
+   console.log(newRecettes.length)
+   if (newRecettes.length === 0 ) {
+      removeGalerie()
+      afficheError ()
+      removeTag(nodeListTag, obj.tabMotCles)
+   }else {
+    removeGalerie()
+    afficheCards(newRecettes)
+    removeTag(nodeListTag, obj.tabMotCles)
+   }
   return obj
+}
+
+function afficheError () {
+  const galerie = document.querySelector(".galerie")
+  removeGalerie()
+  galerie.textContent = "Aucun élément de la recherche ne correspond"
 }
 
 // Fonction permettant d'empecher la création de tag ayant la même valeur 
@@ -186,7 +199,6 @@ function supprTagDoublon(tab) {
 function removeTag(nodeList, tabMotCles) {
   let recettes = recipes
   let closeBtn = document.querySelectorAll("#close-tag")
- console.log(closeBtn.length)
   for(let index = 0; index < closeBtn.length; index ++){
  
     closeBtn[index].addEventListener("click", () => {
@@ -194,7 +206,6 @@ function removeTag(nodeList, tabMotCles) {
       nodeList[index].remove()
       tabMotCles.splice(index, 1)
       let newRecettes = tabRecetteTrier(recettes, tabMotCles)
-      console.log(newRecettes)
       if (tabMotCles.length > 1 || tabMotCles.length === 1 ){
         
         removeGalerie()
