@@ -8,5 +8,5 @@ Recherche des performances avec jsBench.
 Pour le code il y a trois branche la main/ la functional/ la native
 
 La native contient le code avec des boucles natives.
-La functionnal contient de sboucles fonctionnels.
+La functionnal contient de boucles fonctionnelles.
 
