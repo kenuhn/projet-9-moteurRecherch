@@ -1,22 +1,28 @@
+let store = []
+
 async function index() {
   const recettes = recipes
   const data = trieElInput()
-  //const tagData = ["lait"]
   afficheCards(recettes)
   animationBtnTag(data)
   trieRechercheInput()
-  document.addEventListener("input", (evenement) => { trieBarreSearch(evenement) })
+  document.addEventListener("input", (evenement) => {trieBarreSearch(evenement)})
 }
 index()
-
 // Affine la recherche en trier les recettes qui contiennent l'ensemble des mots clés
 function tabRecetteTrier(recettes, tabMotCles) {
+  const barreRecherche = document.querySelector(".barre-recherche")
   let tabRecette = []
+  const tab = [barreRecherche.value]
+    for (el of tabMotCles) { 
+      tab.push(el)
+    }
+    console.log("motcles + saisie ==> ", tab)
   for (let i = 0; i < recettes.length; i++) {
     let nbTrue = 0;
     //Pour chaque recette, vérifier si la recette contient un des mots clés soit dans son nom sa descritpion ou ses ingredients 
     //boucle chaque élement du tableau recherche 
-    for (motCles of tabMotCles) {
+    for (motCles of tab) {
       if (recettes[i].name.toLowerCase().includes(motCles.toLowerCase()) === true || 
           recettes[i].description.toLowerCase().includes(motCles.toLowerCase()) === true ||
           recettes[i].ingredients.forEach((objIngredient) => {
@@ -27,61 +33,49 @@ function tabRecetteTrier(recettes, tabMotCles) {
         nbTrue++
        }
        // si tous les mots clés sont présent dans {l'objet recette}, alors push recette dans un tableau 
-      if (nbTrue === tabMotCles.length) {
+      if (nbTrue === tab.length) {
+        console.log(nbTrue)
         tabRecette.push(recettes[i])
       }
     }
   }
+  console.log("tabRecette ==> ", tabRecette)
   return tabRecette
 }
+ 
+
 
 //Affiche les cartes trier dans la galerie
 async function trieBarreSearch(e) {
   const barreRecherche = document.querySelector(".barre-recherche")
   const recettes = recipes
   const galerie = document.querySelector(".galerie")
+
   if (e.target === barreRecherche){
     const saisie = e.target.value.toLowerCase()
+   // console.log("store ==> ", store)
 
-     /* Renvoie un nouveau tableau avec les recettes incluants le tag taper dans la barre de recherche
-   si la cible contient un groupe de lettres incluant le nom l'ingredients ou un mot de la description 
-   et que la cible contient au moins 3 lettres */
-
-        const newRecettes = []
-          for (recette of recettes){
-            if ( recette.name.toLowerCase().indexOf(saisie) !== -1 || 
-  
-            recette.ingredients.forEach((objIngredient) => {
-                objIngredient.ingredient.toLowerCase().indexOf(saisie) !== -1
-            }) ||
-    
-            recette.description.toLowerCase().indexOf(saisie) !== -1) {
-
-              newRecettes.push(recette)
-            }
-          }
-        
+      const newRecettes = tabRecetteTrier(recettes, store)
       if (saisie.length > 3 ) {
-
-        if ( newRecettes.length !== 0){
-
+        if ( newRecettes.length > 0){
                removeGalerie()
                afficheCards(newRecettes)
-               console.log(newRecettes)
-    
          } else if ( newRecettes.length === 0) {
            removeGalerie()
            galerie.textContent = "Aucun élément de la recherche ne correspond"
          }
-      } else {
-        removeGalerie()
-        afficheCards(recettes)
-      }
-      console.log(saisie)
-
+      }  else {
+          if (store < 1 ) {
+            removeGalerie()
+            afficheCards(recettes)
+          } else {
+            removeGalerie()
+            afficheCards(newRecettes)
+          }
+      } 
   } 
  
-}
+} 
 /* Trie les mots clés afficher à l'interieur de chaque input de couleur 
   afine la recherche en fonction des mots tag présents 
 */
@@ -141,7 +135,6 @@ async function afficheTag(texte, numero) {
       break;
     default: console.log("numero n'a pas de valeur ")
   }
-  console.log(numero)
   
   blockTag.classList.add("tag-block", numero)
   contentTag.appendChild(blockTag)
@@ -153,16 +146,17 @@ async function afficheTag(texte, numero) {
     let  nodeListTag = document.querySelectorAll(".tag-block")
   // Si nodeListag existe execute la fonction de suppression des tableaux dans la nodeList 
     let  obj  = supprTagDoublon(nodeListTag)
+    store = obj.tabMotCles
   /* Ensuite pour chaque mot clés du newTab vérifie si la valeur de la saisie 
       est strictement = à un des éléments du newTab si oui ?
       => Affiche un tag => suprime la galerie de recettes 
       => créer un nouveau tableau de recettes en fonction des mots clés
       => supprime les anciennes recettes dans la galerie => et affiche les nouvelles 
       */
-  let newRecettes =  tabRecetteTrier(recettes, obj.tabMotCles)
+  let newRecettes =  tabRecetteTrier(recettes, store)
   removeGalerie()
   afficheCards(newRecettes)                
-  removeTag(nodeListTag, obj.tabMotCles)
+  removeTag(nodeListTag, /* obj.tabMotCles */ obj.tabMotCles)
   return obj
 }
 
@@ -191,35 +185,26 @@ function supprTagDoublon(tab) {
       tabMotCles.push(el.outerText)
     }
   })
-  return { tab: [...tab], tabMotCles: [...tabMotCles] }
+  return { tab: [...tab],  tabMotCles: [...tabMotCles] }
 }
 
 
-function removeTag(nodeList, tabMotCles) {
-  let recettes = recipes
-  let closeBtn = document.querySelectorAll("#close-tag")
- console.log(closeBtn.length)
-  for(let index = 0; index < closeBtn.length; index ++){
- 
-    closeBtn[index].addEventListener("click", () => {
-      
-      nodeList[index].remove()
-      tabMotCles.splice(index, 1)
-      let newRecettes = tabRecetteTrier(recettes, tabMotCles)
-      console.log(newRecettes)
-      if (tabMotCles.length > 1 || tabMotCles.length === 1 ){
-        
+/* Petite fonction récursive pour supprimer les tags  */
+  function removeTag(nodeList, tabMotCles) {
+    let recettes = recipes
+    let closeBtn = document.querySelectorAll("#close-tag")
+    for(let index = 0; index < closeBtn.length; index ++){
+     
+      closeBtn[index].addEventListener("click", () => {
+
+        tabMotCles.splice(index, 1)
+        nodeList[index].remove()
+        store =  tabMotCles
+        let newRecettes = tabRecetteTrier(recettes, store)
         removeGalerie()
         afficheCards(newRecettes)
 
-      }
-      else  {
-        removeGalerie()
-        afficheCards(recettes)
-      }
-      removeTag(nodeList, tabMotCles)
-  })
+        removeTag(nodeList, tabMotCles)
+    })
+  }
 }
-}
-
-/**/
