@@ -1,3 +1,5 @@
+let store = []
+
 async function index() {
   const recettes = recipes
   const data = trieElInput()
@@ -8,72 +10,90 @@ async function index() {
 }
 index()
 
-// Affine la recherche en trier les recettes qui contiennent l'ensemble des mots clés
-function tabRecetteTrier(recettes, tabMotCles) {
-  let tabRecetteTrier = []
-
-  /* Pour chaque recette, vérifier si la recette contient chacun des mots clés 
-    du tableau tabMotCles soit dans son nom sa descritpion ou ses ingredients */
-  recettes.forEach((recette) => {
-    let nbTrue = 0;
-    /* parcours le tableau recherche afin de rechercher si tous le mots sont présents  */
-
-    tabMotCles.forEach((el) => {
-      if (recette.name.toLowerCase().includes(el.toLowerCase()) === true ||
-        recette.description.toLowerCase().includes(el.toLowerCase()) === true ||
-        recette.ingredients.forEach((objIngredient) => {
-          objIngredient.ingredient.toLowerCase().includes(el.toLowerCase())
-        })
-      )//si le mot clés est présent dans une des parties de l'objet recette  ajoute 1à la variable nombre de true
-      {
-        nbTrue++
-        console.log(nbTrue)
-      }
-      // si tous les mots clés sont présent dans l'objet recette, push la recette dans un tableau 
-      if (nbTrue === tabMotCles.length) {
-        tabRecetteTrier.push(recette)
-      }
-    })
-
-  })
-  return tabRecetteTrier
-}
 
 //Affiche les cartes trier dans la galerie
-async function trieBarreSearch(e) {
-  const barreRecherche = document.querySelector(".barre-recherche")
-  const recettes = recipes
-  const galerie = document.querySelector(".galerie")
-  if (e.target === barreRecherche) {
-    const saisie = e.target.value.toLowerCase()
-    /* Renvoie un nouveau tableau avec les recettes incluants le saisie taper dans la barre de recherche
-  si la cible contient un groupe de lettres incluant le nom l'ingredients ou un mot de la description 
-  et que la cible contient au moins 3 lettres */
-    const newRecettes = recettes.filter(recette =>
-      recette.name.toLowerCase().includes(saisie) ||
-      recette.ingredients.forEach((objIngredient) => {
-        objIngredient.ingredient.toLowerCase().includes(saisie)
-      }) ||
-      recette.description.toLowerCase().includes(saisie))
-    if (saisie.length > 3) {
+function tabRecetteTrier(recettes, tabMotCles) {
+  const barreRecherche = document.querySelector('.barre-recherche');
+  let tabRecette = [];
+  const tab = [barreRecherche.value];
+  tabMotCles.forEach(el => tab.push(el));
+  console.log('motcles + saisie ==> ', tab);
 
-      if (newRecettes.length !== 0) {
-        removeGalerie()
-        afficheCards(newRecettes)
-        console.log(newRecettes)
+  recettes.forEach(recette => {
+      let nbTrue = 0;
+      tab.forEach(motCles => {
+          let motClesPresent = false;
+          recette.ingredients.forEach(el => {
+              if (el.ingredient.toLowerCase().includes(motCles.toLowerCase())) {
+                  motClesPresent = true;
+                  console.log('première verrification ', motClesPresent, motCles);
+              }
+          });
 
-      } else if (newRecettes.length === 0) {
-        removeGalerie()
-        galerie.textContent = "Aucun élément de la recherche ne correspond"
+          if (!motClesPresent) {
+              if (recette.name.toLowerCase().includes(motCles.toLowerCase()) || recette.description.toLowerCase().includes(motCles.toLowerCase())) {
+                  motClesPresent = true;
+                  console.log('deuième verrification ', motClesPresent, motCles);
+              }
+          }
+
+          if (!motClesPresent && tab.length > 1) {
+              console.log('on retre dans la troisième partie');
+              if (recette.appliance.toLowerCase().includes(motCles.toLowerCase())) {
+                  motClesPresent = true;
+                  console.log('troisième verrification ', motClesPresent, motCles);
+              } else {
+                  recette.ustensils.forEach(el => {
+                      if (el.toLowerCase().includes(motCles.toLowerCase())) {
+                          motClesPresent = true;
+                          console.log('troisième verrification ', motClesPresent, motCles);
+                      }
+                  });
+              }
+          }
+
+          if (motClesPresent) {
+              nbTrue++;
+          }
+      });
+
+      if (nbTrue === tab.length) {
+          console.log('ils sont ==> ', nbTrue, ' recettes a être inclure les mots clés');
+          tabRecette.push(recette);
       }
-    } else {
-      removeGalerie()
-      afficheCards(recettes)
-    }
-    console.log(saisie)
+  });
+  console.log('tabRecette ==> ', tabRecette);
+  return tabRecette;
+}
+//Affiche les cartes trier dans la galerie
+async function trieBarreSearch(e) {
+	const barreRecherche = document.querySelector('.barre-recherche');
+	const recettes = recipes;
+	const galerie = document.querySelector('.galerie');
 
-  }
+	if (e.target === barreRecherche) {
+		const saisie = e.target.value.toLowerCase();
+		// console.log("store ==> ", store)
 
+		const newRecettes = tabRecetteTrier(recettes, store);
+		if (saisie.length > 3) {
+			if (newRecettes.length > 0) {
+				removeGalerie();
+				afficheCards(newRecettes);
+			} else if (newRecettes.length === 0) {
+				removeGalerie();
+				galerie.textContent = 'Aucun élément de la recherche ne correspond';
+			}
+		} else {
+			if (store < 1) {
+				removeGalerie();
+				afficheCards(recettes);
+			} else {
+				removeGalerie();
+				afficheCards(newRecettes);
+			}
+		}
+	}
 }
 //Trie les recettes afficher à l'interieur de chaque input de couleur 
 async function trieRechercheInput() {
@@ -148,6 +168,7 @@ async function afficheTag(motCles, indexInput) {
       => supprime les anciennes recettes dans la galerie => et affiche les nouvelles 
       */
   obj = supprTagDoublon(nodeListTag) //renvoie un tableau
+  store = obj.tabMotCles
   let newRecettes = tabRecetteTrier(recettes, obj.tabMotCles)
   removeGalerie()
   afficheCards(newRecettes)
@@ -195,17 +216,12 @@ function removeTag(nodeList, tabMotCles) {
       nodeList[index].remove()
       tabMotCles.splice(index, 1)
       let newRecettes = tabRecetteTrier(recettes, tabMotCles)
+      store = tabMotCles
       console.log(newRecettes)
-      if (tabMotCles.length > 1 || tabMotCles.length === 1) {
 
         removeGalerie()
         afficheCards(newRecettes)
 
-      }
-      else {
-        removeGalerie()
-        afficheCards(recettes)
-      }
       removeTag(nodeList, tabMotCles)
     })
   }
