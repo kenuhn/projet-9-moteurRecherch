@@ -35,7 +35,7 @@ header{
 .fa-magnifying-glass{
     position: absolute;
     right: 130px;
-    top: 195;
+    top: 195px;
 }
 
 /*recherche par mots clés ou tag*/
@@ -55,7 +55,7 @@ header{
 .contenant-mot-clés{
     color: white;
     margin-right: 25px;
-    height: 50;
+    height: 50px;
     border-radius: 5px;
 }
 
@@ -87,6 +87,7 @@ header{
 
 }
 .placeholder-texte{
+    font-style: normal;
     width: 50px;
     margin: 0;
     padding: 0;

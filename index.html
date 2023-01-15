@@ -1,76 +1,77 @@
+<!DOCTYPE html>
 <html lang="fr">
 
-<head>
-    <meta charset="utf-8">
-    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link href="css/style.css" rel="stylesheet" />
-    <title> Les petits plats</title>
-</head>
-
-<body>
-    <header>
-        <img class="Logo" src="img/logo.png" alt="logo">
-    </header>
-    <main>
-        <article class="recherche">
-            <input class="barre-recherche" type="text" placeholder="recherche recette...">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </article>
-        <div class="tag-content">
-            
-        </div>
-        <article class="recherche-mots-clés">
-            <section class="contenant-input-mots-clés">
-                <section class="contenant-mot-clés bleu">
-                    <input class="mots-clés-input" type="text" id="ingredients">
-                    <label class="placeholder" for="ingredients">
-                        <p class="placeholder-texte"> ingredients</p>
-                        <i class="fa fa-solid fa-angle-up arrow-up"></i>
-                        <i class="fa fa-solid fa-angle-down arrow-down"></i>
-                    </label>
-                    <div class="mots-clés">
-
-                    </div>
-                </section>
-
-                <section class="contenant-mot-clés vert">
-                    <input class="mots-clés-input" type="text" id="appareils">
-
-                    <label class="placeholder" for="appareils">
-                        <p class="placeholder-texte"> Appareils</p>
-                        <i class="fa fa-solid fa-angle-up arrow-up"></i>
-                        <i class="fa fa-solid fa-angle-down arrow-down"></i>
-                    </label>
-                    <div class="mots-clés">
-
-                    </div>
-                </section>
-
-                <section class="contenant-mot-clés rouge">
-                    <input class="mots-clés-input" type="text" id="ustensiles">
-                    <label class="placeholder" for="ustensiles">
-                        <p class="placeholder-texte"> Ustensiles</p>
-                        <i class="fa fa-solid fa-angle-up arrow-up"></i>
-                        <i class="fa fa-solid fa-angle-down arrow-down"></i>
-                    </label>
-                    <div class="mots-clés">
-
-                    </div>
-                </section>
-            </section>
-        </article>
-        <article class="galerie">
-
-        </article>
-    </main>
-    <script src="js/data/recipes.js"></script>
-    <script src="js/cardsRecette.js"></script>
-    <script src="js/trieElInput.js"></script>
-    <script src="js/inputCouleur.js"></script>
-    <script src="js/index.js"></script>
-</body>
+    <head>
+        <meta charset="utf-8">
+        <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+            integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <link href="css/style.css" rel="stylesheet" />
+        <title> Les petits plats</title>
+    </head>
     
-</html>
+    <body>
+        <header>
+            <img class="logo" src="img/logo.png" alt="logo">
+        </header>
+        <main>
+            <article class="recherche">
+                <input class="barre-recherche" type="text" placeholder="recherche recette...">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </article>
+            <div class="tag-content">
+                
+            </div>
+            <article class="recherche-mots-clés">
+                <section class="contenant-input-mots-clés">
+                    <section class="contenant-mot-clés bleu">
+                        <input class="mots-clés-input" type="text" id="ingredients">
+                        <label class="placeholder" for="ingredients">
+                            <i class="placeholder-texte"> ingredients</i>
+                            <i class="fa fa-solid fa-angle-up arrow-up"></i>
+                            <i class="fa fa-solid fa-angle-down arrow-down"></i>
+                        </label>
+                        <div class="mots-clés">
+    
+                        </div>
+                    </section>
+    
+                    <section class="contenant-mot-clés vert">
+                        <input class="mots-clés-input" type="text" id="appareils">
+    
+                        <label class="placeholder" for="appareils">
+                            <i class="placeholder-texte"> Appareils</i>
+                            <i class="fa fa-solid fa-angle-up arrow-up"></i>
+                            <i class="fa fa-solid fa-angle-down arrow-down"></i>
+                        </label>
+                        <div class="mots-clés">
+    
+                        </div>
+                    </section>
+    
+                    <section class="contenant-mot-clés rouge">
+                        <input class="mots-clés-input" type="text" id="ustensiles">
+                        <label class="placeholder" for="ustensiles">
+                            <i class="placeholder-texte"> Ustensiles</i>
+                            <i class="fa fa-solid fa-angle-up arrow-up"></i>
+                            <i class="fa fa-solid fa-angle-down arrow-down"></i>
+                        </label>
+                        <div class="mots-clés">
+    
+                        </div>
+                    </section>
+                </section>
+            </article>
+            <article class="galerie">
+    
+            </article>
+        </main>
+        <script src="js/data/recipes.js"></script>
+        <script src="js/cardsRecette.js"></script>
+        <script src="js/trieElInput.js"></script>
+        <script src="js/inputCouleur.js"></script>
+        <script src="js/index.js"></script>
+    </body>
+        
+    </html>
