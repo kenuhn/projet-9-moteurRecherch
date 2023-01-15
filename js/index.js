@@ -7,7 +7,7 @@ async function index() {
 	animationBtnTag(data);
 	trieRechercheInput();
 	document.addEventListener('input', (evenement) => {
-		trieBarreSearch(evenement);
+		afficheNewGalerie(evenement);
 	});
 }
 index();
@@ -71,6 +71,37 @@ index();
 	return tabRecette;
 }
  
+
+//Affiche les cartes trier dans la galerie
+async function afficheNewGalerie(e) {
+	const barreRecherche = document.querySelector('.barre-recherche');
+	const recettes = recipes;
+	const galerie = document.querySelector('.galerie');
+
+	if (e.target === barreRecherche) {
+		const saisie = e.target.value.toLowerCase();
+		// console.log("store ==> ", store)
+
+		const newRecettes = tabRecetteTrier(recettes, store);
+		if (saisie.length > 3) {
+			if (newRecettes.length > 0) {
+				removeGalerie();
+				afficheCards(newRecettes);
+			} else if (newRecettes.length === 0) {
+				removeGalerie();
+				galerie.textContent = 'Aucun élément de la recherche ne correspond';
+			}
+		} else {
+			if (store < 1) {
+				removeGalerie();
+				afficheCards(recettes);
+			} else {
+				removeGalerie();
+				afficheCards(newRecettes);
+			}
+		}
+	}
+}
 
 
 /* Trie les mots clés afficher à l'interieur de chaque input de couleur 
