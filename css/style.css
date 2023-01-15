@@ -10,7 +10,12 @@ header{
     flex-flow: row wrap;
     justify-content: center;
 }
+.logo{
+    width: 500px;
+    height: 150px;
+    margin-bottom: 20px;
 
+}
 /* Barre de recherche */
 .recherche{
     width: 1240px;
@@ -30,7 +35,7 @@ header{
 .fa-magnifying-glass{
     position: absolute;
     right: 130px;
-    top: 108;
+    top: 195;
 }
 
 /*recherche par mots clés ou tag*/
