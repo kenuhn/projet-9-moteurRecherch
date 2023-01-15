@@ -90,6 +90,8 @@ header{
 
 }
 .placeholder-texte{
+    font-style: normal;
+    list-style: none;
     width: 50px;
     margin: 0;
     padding: 0;
