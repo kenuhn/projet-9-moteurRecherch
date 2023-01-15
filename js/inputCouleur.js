@@ -1,7 +1,7 @@
 function animationBtnTag(data) {
     const input = document.querySelectorAll(".mots-clés-input")
-    const arrowUp = document.querySelectorAll("#arrow-up")
-    const arrowDown = document.querySelectorAll("#arrow-down")
+    const arrowUp = document.querySelectorAll(".arrow-up")
+    const arrowDown = document.querySelectorAll(".arrow-down")
     const texteInput = document.querySelectorAll(".placeholder-texte")
     const contenantInput = document.querySelectorAll(".contenant-mot-clés")
     const motCles = document.querySelectorAll(".mots-clés")
@@ -13,9 +13,8 @@ function animationBtnTag(data) {
             if (e.target === input[i] && input[i].style.width === "150px") {
                 //console.log(e.target, input[i])
                 input[i].style.width = "800px"
-                arrowUp[i].style.display = "block"
-                arrowDown[i].style.display = "none"
-                arrowUp[i].style.display = "block"
+                arrowUp[i].style.display = "none"
+                arrowDown[i].style.display = "block"
                 texteInput[i].style.display = "none"
                 input[i].setAttribute("placeholder", "rechercher des" + texteInput[i].textContent + "...")
                 contenantInput[i].style.height = "375px"
@@ -25,8 +24,8 @@ function animationBtnTag(data) {
                // console.log(e.target, input[i])
                 input[i].value = " "
                 input[i].style.width = "150px";
-                arrowUp[i].style.display = "none"
-                arrowDown[i].style.display = "block"
+                arrowUp[i].style.display = "block"
+                arrowDown[i].style.display = "none"
                 texteInput[i].style.display = "block"
                 input[i].setAttribute("placeholder", "")
                 contenantInput[i].style.height = "50px"
@@ -38,8 +37,8 @@ function animationBtnTag(data) {
                 console.log(e.target, input[i])
                 e.target.value = " "
                 input[i].style.width = "150px";
-                arrowUp[i].style.display = "none"
-                arrowDown[i].style.display = "block"
+                arrowUp[i].style.display = "block"
+                arrowDown[i].style.display = "none"
                 texteInput[i].style.display = "block"
                 input[i].setAttribute("placeholder", "")
                 contenantInput[i].style.height = "50px"

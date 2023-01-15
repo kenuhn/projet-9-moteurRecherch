@@ -97,13 +97,14 @@ header{
 .mots-clés-input:focus {
     padding-left: 15px;
 }
-#arrow-up {
-    display: none;
-    position: relative;
+.arrow-down {
+    display: none ;
+    position: relative; 
     left: 675px;
     top: 7px;
+    width: 14px;
+    height: 19px;
 }
-
 .mots-clés {
     display: flex;
     flex-flow: column wrap;
