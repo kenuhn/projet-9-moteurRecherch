@@ -105,11 +105,13 @@ async function trieRechercheInput() {
   const recettes = recipes;
   const inputCouleur = document.querySelectorAll('.contenant-mot-clés');
   const contenantMotCles = document.querySelectorAll('.mots-clés');
-  const newRecettes = tabRecetteTrier(recettes, store);
-  const tabInput = trieElInput(newRecettes);
+  
 
   for (let i = 0; i < inputCouleur.length; i++) {
     inputCouleur[i].addEventListener('input', (e) => {
+     const newRecettes = tabRecetteTrier(recettes, store);
+     const tabInput = trieElInput(newRecettes);
+     console.log(tabInput)
       const valeurSaisie = e.target.value.toLowerCase();
       const newTab = [];
       for (let el of tabInput[i]) {
