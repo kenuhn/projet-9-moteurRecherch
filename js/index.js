@@ -78,7 +78,7 @@ async function afficheNewGalerie(e) {
     const saisie = e.target.value.toLowerCase();
 
     const newRecettes = tabRecetteTrier(recettes, store);
-    if (saisie.length > 3) {
+    if (saisie.length > 2) {
       if (newRecettes.length > 0) {
         cards.removeGalerie();
         cards.afficheCards(newRecettes);
