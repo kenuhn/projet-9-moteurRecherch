@@ -1,6 +1,7 @@
 # p7-moteurRecherche
 
-Création d'un moteur de recherche en vanilla javascript
+Création d'un moteur de recherche en vanilla javascript,
+pour rechercher des recettes de cuisines.
 
 Création d'un algorigramme pour chaque algorithme avant de les coder.
 Puis comparaison de deux algorithme un type fonctionnel l'aute en utilisant des boucles natives.
